@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Home</title>
+    <style>
+        #content {
+            top: 20%;
+        }
+    </style>
+</head>
+<body bgcolor="#e6e6fa">
+    <header>
+        <div id="name">
+            Kayra Oksuz
+        </div>
+        <div id="location">
+            <a href="index.html" id="homePage"><p>Home Page</p></a>
+        </div>
+        <div id="searchBar">
+            <form action="" id="search">
+                <input type="text" id="query" value="Search...">
+                <button type="button" id="btn"><img src="magnifying-glass-solid.svg" alt="search"></button>
+            </form>
+        </div>
+        <script src="search.js"></script>
+    </header>
+
+    <nav id="navbar">
+        <div id="business" class="category">
+            <a href="business.html">Business</a>
+        </div>
+        <div id="entertainment" class="category">
+            <a href="entertainment.html">Entertainment</a>
+        </div>
+        <div id="general" class="category">
+            <a href="general.html">General</a>
+        </div>
+        <div id="health" class="category">
+            <a href="health.html">Health</a>
+        </div>
+        <div id="science" class="category">
+            <a href="science.html">Science</a>
+        </div>
+        <div id="sports" class="category">
+            <a href="sports.html">Sports</a>
+        </div>
+        <div id="technology" class="category">
+            <a href="technology.html">Technology</a>
+        </div>
+    </nav>
+
+    <div id="content">
+        <span id="news">
+            <p style="text-align: left;">Your results is:<br></p>
+            <p style="text-align: left;" id="news"><br></p>
+        </span>
+
+    </div>
+
+    <script>
+
+        var api_key = "fa9955026f6047e6af203cee4189be8e";
+        var baseurl= new URL(location.href);
+        let params = new URLSearchParams(baseurl.search);
+        var queryparam = params.get('q').toString();
+        var urlparam = "https://newsapi.org/v2/top-headlines?country=tr&apiKey=" + api_key + "&q=";
+        console.log(urlparam + queryparam);
+        getapi(urlparam + queryparam);
+            // Defining async function
+            async function getapi(url) {
+                
+                // Storing response
+                const response = await fetch(url);
+                                
+                // Storing data in form of JSON
+                let data = await response.json();
+                
+                for (let index = 0; index < data['totalResults']; index++) {
+                    document.getElementById('news').innerHTML += data['articles'][index].title + "<br>";
+                    
+                }
+            
+                
+            }
+
+            
+    </script>
+
+</body>
+</html>
